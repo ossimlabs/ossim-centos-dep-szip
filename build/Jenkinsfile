@@ -6,7 +6,7 @@ properties([
     pipelineTriggers([
             [$class: "GitHubPushTrigger"]
     ]),
-    [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/ossimlabs/ossim-ffmpeg'],
+    [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/ossimlabs/ossim-szip'],
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '20')),
     disableConcurrentBuilds()
 ])
@@ -47,20 +47,20 @@ node(POD_LABEL){
         }
         load "common-variables.groovy"
     }
-    stage (" Checkout ffmpeg")
+    stage (" Checkout szip")
     {
         container('builder') 
         {
-            sh """./checkout-ffmpeg.sh
+            sh """./checkout-szip.sh
                   """
         }
     }
-    stage (" Build ffmpeg")
+    stage (" Build szip")
     {
         container('builder') 
         {
             sh """
-                  ./build-ffmpeg.sh"""
+                  ./build-szip.sh"""
         }
     }
     
