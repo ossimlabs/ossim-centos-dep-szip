@@ -2,8 +2,8 @@
 
 set -e
 
-SZIP="szip-${SZIP_VERSION}"
-dir="${DEPS_DIR}/szip"
+SZIP="szip-2.1.1"
+
 
 if [ ! -d "${dir}" ]; then
     wget -q https://s3.amazonaws.com/ossimlabs/dependencies/source/$SZIP.tgz -O $SZIP.tgz
