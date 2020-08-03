@@ -60,7 +60,8 @@ node(POD_LABEL){
         container('builder') 
         {
             sh """
-                  ./build-szip.sh"""
+             ./build-szip.sh
+            """
         }
     }
     
