@@ -47,14 +47,14 @@ node(POD_LABEL){
         }
         load "common-variables.groovy"
     }
-    stage (" Checkout szip")
-    {
-        container('builder') 
-        {
-            sh """./checkout-szip.sh
-                  """
-        }
-    }
+//    stage (" Checkout szip")
+//    {
+//        container('builder')
+//        {
+//            sh """./checkout-szip.sh
+//                  """
+//        }
+//    }
     stage (" Build szip")
     {
         container('builder') 
