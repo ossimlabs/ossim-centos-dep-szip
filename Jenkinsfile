@@ -46,24 +46,28 @@ node(POD_LABEL){
         }
         load "common-variables.groovy"
     }
-//    stage (" Checkout szip")
-//    {
-//        container('builder')
-//        {
-//            sh """./checkout-szip.sh
-//                  """
-//        }
-//    }
+
     stage (" Build szip")
     {
         container('builder') 
         {
             sh """
              ./build-szip.sh
+              cd /usr/local
+              tar -czvf centos-szip.tgz *
             """
         }
     }
     
+    stage("Publish"){
+        withCredentials([usernameColonPassword(credentialsId: 'nexusCredentials', variable: 'NEXUS_CREDENTIALS')]){
+            container('builder') {
+              sh """
+              cd /usr/local
+              curl -v -u ${NEXUS_CREDENTIALS} --upload-file centos-szip.tgz https://nexus.ossim.io/repository/ossim-dependencies/"""
+            }
+          }
+    }
 	stage("Clean Workspace"){
       step([$class: 'WsCleanup'])
   }
